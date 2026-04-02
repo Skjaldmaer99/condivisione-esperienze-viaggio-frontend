@@ -8,6 +8,7 @@ import {
 import type { TravelPost } from "@/features/travelPosts/travelPost.type";
 
 export default function Post(props: TravelPost) {
+
     return (
         <div className="w-full max-w-sm mx-auto p-4">
             <Card>
@@ -17,7 +18,7 @@ export default function Post(props: TravelPost) {
                             alt="Avatar"
                             className="rounded-full"
                             height="40"
-                            src="https://placehold.co/40x40/000000/FFFFFF/png?text=FE"
+                            src={props.user?.img || "https://placehold.co/40x40/000000/FFFFFF/png?text=FE"}
                             style={{
                                 aspectRatio: "40/40",
                                 objectFit: "cover",
@@ -36,7 +37,8 @@ export default function Post(props: TravelPost) {
                     <img
                         alt="Card content"
                         className="w-full h-auto"
-                        src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&auto=format&fit=crop"
+                        src={props.img || 'https://placehold.co/600x400/cccccc/ffffff?text=Error+Loading+Image'}
+                        /* src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&auto=format&fit=crop" */
                         onError={(e) => {
                             const target = e.target as HTMLImageElement;
                             target.onerror = null; // prevent infinite loop

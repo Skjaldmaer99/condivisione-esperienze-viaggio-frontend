@@ -1,8 +1,12 @@
-import { Equal, X } from 'lucide-react'
 import { Button } from '@/components/ui/liquid-glass-button'
-import React from 'react'
 import { cn } from '@/lib/utils'
+import { Equal, X } from 'lucide-react'
+import React from 'react'
 import { Link } from 'react-router'
+import { FormDialog } from '../FormDialog'
+import RegisterForm from '../RegisterForm'
+import LoginForm from '../LoginForm'
+import CreatePostForm from '../CreatePostForm'
 
 const menuItems = [
     { name: 'Dashboard', href: '/' },
@@ -83,10 +87,24 @@ export const Header = () => {
                                 </ul>
                             </div>
                             <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-2 sm:space-y-0 md:w-fit">
-
-                                <Link to="#"><Button variant="outline" size="sm" className={cn(isScrolled && 'lg:hidden')}><span>Login</span></Button></Link>
-                                <Link to="#"><Button size="sm" className={cn(isScrolled && 'lg:hidden')}><span>Sign Up</span></Button></Link>
-                                <Link to="#"><Button size="sm" className={cn(isScrolled ? 'lg:inline-flex' : 'hidden')}><span>Get Started</span></Button></Link>
+                                <FormDialog
+                                    button="Registrati"
+                                    title="Registrati"
+                                    description="Registrati"
+                                    form={(onClose) => <RegisterForm onClose={onClose} />}
+                                />
+                                <FormDialog
+                                    button="Login"
+                                    title="Login"
+                                    description="Login"
+                                    form={(onClose) => <LoginForm onClose={onClose} />}
+                                />
+                                <FormDialog
+                                    button="+"
+                                    title="Nuovo post"
+                                    description="Inserisci i dettagli del tuo viaggio"
+                                    form={(onClose) => <CreatePostForm onClose={onClose} />}
+                                />
                             </div>
                         </div>
                     </div>

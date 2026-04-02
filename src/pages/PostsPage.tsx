@@ -1,3 +1,4 @@
+
 import Post from '@/components/post';
 import { TravelPostService } from '@/features/travelPosts/travelPost.service';
 import { useQuery } from '@tanstack/react-query';
@@ -11,16 +12,20 @@ const PostsPage = () => {
     });
 
     console.log(data);
+
     return (
         <div className="mx-auto mt-20">
-            {data?.map(((post) => {
-                return <Post key={post.id}
+            {data?.map(((post, index) => {
+                return <Post key={index + 1}
                     id={post.id}
                     title={post.title}
                     location={post.location}
                     country={post.country}
                     description={post.description}
-                    user_id={post.user_id} />
+                    user_id={post.user_id}
+                    user={post.user}
+                    img={post.img}
+                />
             }))}
         </div>
     )
