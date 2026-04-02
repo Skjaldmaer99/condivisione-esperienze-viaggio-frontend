@@ -25,6 +25,7 @@ const PostsPage = () => {
                     user_id={post.user_id}
                     user={post.user}
                     img={post.img}
+                    comments={post.comments}
                 />
             }))}
         </div>

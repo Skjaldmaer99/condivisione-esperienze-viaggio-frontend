@@ -6,6 +6,9 @@ import {
     CardTitle,
 } from "@/components/ui/card-2";
 import type { TravelPost } from "@/features/travelPosts/travelPost.type";
+import { HeartIcon, MessageCircleIcon } from "lucide-react";
+import { CommentDrawer } from "./CommentDrawer";
+import { Button } from "./ui/button";
 
 export default function Post(props: TravelPost) {
 
@@ -13,7 +16,7 @@ export default function Post(props: TravelPost) {
         <div className="w-full max-w-sm mx-auto p-4">
             <Card>
                 <CardHeader>
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-start space-x-4">
                         <img
                             alt="Avatar"
                             className="rounded-full"
@@ -28,7 +31,6 @@ export default function Post(props: TravelPost) {
                         <div className="flex-1">
                             <CardTitle>{props.title}</CardTitle>
                             <CardDescription>{props.location}</CardDescription>
-                            <CardDescription>{props.description}</CardDescription>
                             <CardDescription>{props.country}</CardDescription>
                         </div>
                     </div>
@@ -49,8 +51,17 @@ export default function Post(props: TravelPost) {
                             objectFit: "cover",
                         }}
                     />
-                    <div className="p-4">
-                        <p className="text-sm text-foreground">This is a basic card</p>
+                    <div className="p-4 flex flex-col gap-2">
+                        <div className="flex gap-3">
+                            <Button variant={'outline'} className="border-0 p-0"><HeartIcon className="size-5" /></Button>
+                            <CommentDrawer comments={props.comments} postId={props.id} />
+                        </div>
+                        <div className="flex gap-2">
+                            <p className="font-bold">{props.user.name}</p>
+                            <CardDescription className="mt-auto">
+                                <p>{props.description}</p>
+                            </CardDescription>
+                        </div>
                     </div>
                 </CardContent>
             </Card>

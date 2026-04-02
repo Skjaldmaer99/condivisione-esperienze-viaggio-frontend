@@ -1,3 +1,4 @@
+import type { Comment } from "../comments/comment.type"
 import type { User } from "../users/user.type"
 
 export type TravelPost = {
@@ -8,5 +9,6 @@ export type TravelPost = {
     description: string,
     img: string | null,
     user_id: number,
-    user: User
+    user: User,
+    comments: Comment[],
 }

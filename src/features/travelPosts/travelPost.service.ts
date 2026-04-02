@@ -1,9 +1,8 @@
-import myEnv from "@/lib/env";
-import type { TravelPost } from "./travelPost.type";
-import axios from 'axios';
-import type z from "zod";
 import type { createPostFormSchema } from "@/components/CreatePostForm";
 import { http } from "@/lib/http";
+import axios from 'axios';
+import type z from "zod";
+import type { TravelPost } from "./travelPost.type";
 
 const api = axios.create({
     baseURL: 'http://condivisione-esperienze-viaggio.test/api'
