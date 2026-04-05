@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
     Drawer,
     DrawerClose,
@@ -6,13 +6,11 @@ import {
     DrawerDescription,
     DrawerFooter,
     DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger,
-} from "@/components/ui/drawer"
-import type { TravelPost } from "@/features/travelPosts/travelPost.type"
-import { MessageCircleIcon, XIcon } from "lucide-react"
-import CommentForm from "./CommentForm";
+    DrawerTrigger
+} from "@/components/ui/drawer";
 import type { Comment } from "@/features/comments/comment.type";
+import { MessageCircleIcon, XIcon } from "lucide-react";
+import CommentForm from "./CommentForm";
 
 //type CommentDrawerProps = Pick<TravelPost, "comments" | "id" | "user">;
 
@@ -24,11 +22,10 @@ type CommentDrawerProps = {
 export function CommentDrawer({ comments, postId }: CommentDrawerProps) {
     /* const queryClient = useQueryClient(['posts']); */
 
-    console.log(comments)
     return (
         <Drawer direction="bottom">
             <DrawerTrigger asChild>
-                <Button variant={'outline'} className="border-0 p-0"><MessageCircleIcon className="size-5" /></Button>
+                <Button variant={'outline'} className="bg-transparent border-0 p-0"><MessageCircleIcon className="size-5" /></Button>
             </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>

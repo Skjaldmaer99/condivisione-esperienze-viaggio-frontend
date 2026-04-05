@@ -11,10 +11,9 @@ const PostsPage = () => {
         queryFn: () => TravelPostService.list()
     });
 
-    console.log(data);
 
     return (
-        <div className="mx-auto mt-20">
+        <div className="mx-auto max-w-md pt-20 bg-gray-100">
             {data?.map(((post, index) => {
                 return <Post key={index + 1}
                     id={post.id}
@@ -26,6 +25,8 @@ const PostsPage = () => {
                     user={post.user}
                     img={post.img}
                     comments={post.comments}
+                    /* isLiked={post.isLiked} */
+                    likes={post.likes}
                 />
             }))}
         </div>

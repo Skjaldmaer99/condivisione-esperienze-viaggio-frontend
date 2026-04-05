@@ -11,7 +11,7 @@ import type React from "react";
 import { useState } from "react";
 
 type DialogFormProps = {
-    button: string;
+    button: React.ReactNode;
     title: string;
     description: string;
     form: (onClose: () => void) => React.ReactNode;
@@ -22,11 +22,11 @@ export function FormDialog({ button, title, description, form }: DialogFormProps
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger render={<Button variant="outline">{button}</Button>} />
+            <DialogTrigger render={<Button variant="outline" className={'border-0 bg-transparent'}>{button}</Button>} />
             <DialogContent className="sm:max-w-sm">
                 <DialogHeader>
                     <DialogTitle>{title}</DialogTitle>
-                    <DialogDescription>
+                    <DialogDescription className={'-mx-4 no-scrollbar max-h-[50vh] overflow-y-auto px-4'}>
                         {description}
                     </DialogDescription>
                 </DialogHeader>

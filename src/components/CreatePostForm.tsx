@@ -56,7 +56,7 @@ export default function CreatePostForm({ onClose }: { onClose: () => void }) {
     }
 
     return (
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 max-w-3xl mx-auto py-10">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 -mx-4 no-scrollbar max-h-[70vh] overflow-y-auto px-4"> {/* space-y-2 max-w-3xl mx-auto py-5 */}
 
             <Field>
                 <FieldLabel>Titolo</FieldLabel>

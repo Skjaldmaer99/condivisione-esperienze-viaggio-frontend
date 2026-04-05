@@ -64,7 +64,7 @@ export default function RegisterForm({ onClose }: { onClose: () => void }) {
     }
 
     return (
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 max-w-3xl mx-auto py-10">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 -mx-4 no-scrollbar max-h-[70vh] overflow-y-auto px-4">
             <Field>
                 <FieldLabel>Nome</FieldLabel>
                 <Input placeholder="Mario Rossi"

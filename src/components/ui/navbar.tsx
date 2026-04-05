@@ -88,6 +88,12 @@ export const Header = () => {
                             </div>
                             <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-2 sm:space-y-0 md:w-fit">
                                 <FormDialog
+                                    button="+"
+                                    title="Nuovo post"
+                                    description="Inserisci i dettagli del tuo viaggio"
+                                    form={(onClose) => <CreatePostForm onClose={onClose} />}
+                                />
+                                <FormDialog
                                     button="Registrati"
                                     title="Registrati"
                                     description="Registrati"
@@ -98,12 +104,6 @@ export const Header = () => {
                                     title="Login"
                                     description="Login"
                                     form={(onClose) => <LoginForm onClose={onClose} />}
-                                />
-                                <FormDialog
-                                    button="+"
-                                    title="Nuovo post"
-                                    description="Inserisci i dettagli del tuo viaggio"
-                                    form={(onClose) => <CreatePostForm onClose={onClose} />}
                                 />
                             </div>
                         </div>
