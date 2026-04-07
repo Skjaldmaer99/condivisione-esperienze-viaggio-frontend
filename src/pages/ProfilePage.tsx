@@ -11,7 +11,7 @@ const ProfilePage = () => {
 
     const { data, isPending, isError, error } = useQuery({
         queryKey: ['posts'],
-        queryFn: () => TravelPostService.list()
+        queryFn: () => TravelPostService.list({})
     });
 
     const posts = data?.filter(post => post.user_id === user?.id) || [];
@@ -20,7 +20,7 @@ const ProfilePage = () => {
         <div className="h-screen mx-auto max-w-md bg-gray-100 p-3 pt-20">
             <div className="flex gap-5">
                 <div className="w-15 h-15 overflow-hidden rounded-full">
-                    <img src={user?.img || "https://placehold.co/40x40/000000/FFFFFF/png?text=FE"} alt="Profile image" />
+                    <img src={user?.img || "https://placehold.co/40x40/000000/FFFFFF/png?text=FE"} alt="Profile image" className="w-full h-full object-cover" />
                 </div>
                 <div>
                     <p className="font-bold text-xl">{user?.name}</p>

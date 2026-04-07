@@ -17,42 +17,45 @@ import { Input } from "@/components/ui/input"
 import { TravelPostService } from "@/features/travelPosts/travelPost.service"
 import { Textarea } from "./ui/textarea"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { id } from "zod/v4/locales"
 
-export const createPostFormSchema = z.object({
-    title: z.string().min(1).max(100),
-    location: z.string().min(1).max(100),
-    country: z.string().min(1).max(100),
-    description: z.string().min(1).max(500),
+export const updatePostFormSchema = z.object({
+    title: z.string().max(100),
+    location: z.string().max(100),
+    country: z.string().max(100),
+    description: z.string().max(500),
     img: z.any().optional(), // 👈 FILE
 });
 
-export default function CreatePostForm({ onClose }: { onClose: () => void }) {
+export default function UpdatePostForm({ id, onClose }: { id: string, onClose: () => void }) {
     const [preview, setPreview] = useState<string | null>(null);
 
     const queryClient = useQueryClient();
 
     const mutation = useMutation({
-        mutationFn: TravelPostService.create,
+        mutationFn: ({ values, id }: { values: z.infer<typeof updatePostFormSchema>, id: string }) =>
+            TravelPostService.update(values, id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['posts']
             })
-            toast.success("Creazione post avvenuta con successo");
+            toast.success("Modifica post avvenuta con successo");
             form.reset();
             setPreview(null);
             onClose();
         },
         onError: () => {
-            toast.error("Errore nella creazione del post")
+            toast.error("Errore nella modifica del post")
         }
     });
 
-    const form = useForm<z.infer<typeof createPostFormSchema>>({
-        resolver: zodResolver(createPostFormSchema),
+    const form = useForm<z.infer<typeof updatePostFormSchema>>({
+        resolver: zodResolver(updatePostFormSchema),
     });
 
-    async function onSubmit(values: z.infer<typeof createPostFormSchema>) {
-        mutation.mutate(values);
+    async function onSubmit(values: z.infer<typeof updatePostFormSchema>) {
+        if (!id) return;
+        mutation.mutate({ values, id });
     }
 
     return (
@@ -112,7 +115,7 @@ export default function CreatePostForm({ onClose }: { onClose: () => void }) {
                 <FieldError>{form.formState.errors.img?.message as string}</FieldError>
             </Field>
 
-            <Button type="submit">Crea nuovo post</Button>
+            <Button type="submit">Modifica post</Button>
         </form>
     )
 }

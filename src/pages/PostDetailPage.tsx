@@ -1,7 +1,8 @@
 import CommentForm from '@/components/CommentForm';
+import { TravelPostService } from '@/features/travelPosts/travelPost.service';
 import { type TravelPost } from '@/features/travelPosts/travelPost.type';
 import { Button } from '@base-ui/react';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { ChevronLeftIcon } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router';
 
@@ -10,9 +11,16 @@ const PostDetailPage = () => {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const queryClient = useQueryClient();
-    const posts = queryClient.getQueryData<TravelPost[]>(['posts']);
-    const post = posts?.find(post => post.id === Number(id));
+    const { data, isLoading, isError } = useQuery({
+        queryKey: ['post', id],   // chiave unica per questo post
+        queryFn: () => TravelPostService.show(id!),
+        enabled: !!id             // esegue solo se id esiste
+    });
+
+    if (isLoading) return <p>Loading...</p>;
+    if (isError || !data) return <p>Errore nel caricamento del post</p>;
+
+    console.log(data)
 
     return (
         <div className="mx-auto h-screen max-w-md bg-gray-100">
@@ -22,18 +30,18 @@ const PostDetailPage = () => {
                 >
                     <ChevronLeftIcon />
                 </Button>
-                <img src={post?.img || 'https://placehold.co/600x400/cccccc/ffffff?text=Error+Loading+Image'}
+                <img src={data?.img || 'https://placehold.co/600x400/cccccc/ffffff?text=Error+Loading+Image'}
                     alt="Immagine di dettaglio del post"
                 />
             </div>
 
             <div className='px-2 py-4'>
-                <h1 className='font-bold text-2xl'>{post?.title}</h1>
-                {post?.description}
+                <h1 className='font-bold text-2xl'>{data?.title}</h1>
+                {data?.description}
             </div>
             <div className='px-2'>
                 <h2 className='py-3 font-bold text-xl pt-4'>Commenti</h2>
-                {post?.comments.map((comment, index) => (
+                {data?.comments.map((comment, index) => (
                     <div key={index} className="flex gap-3 pb-2 border-b border-black/10" >
                         <div className="w-[40px]">
                             <img
@@ -54,7 +62,7 @@ const PostDetailPage = () => {
                         </div>
                     </div>
                 ))}
-                <div className='pt-4'><CommentForm postId={post!.id} /></div>
+                <div className='pt-4'><CommentForm postId={data!.id} /></div>
             </div>
         </div>
     )

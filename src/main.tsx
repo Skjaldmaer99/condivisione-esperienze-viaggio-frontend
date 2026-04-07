@@ -13,6 +13,7 @@ import PostsPage from "./pages/PostsPage";
 import PostDetailPage from "./pages/PostDetailPage";
 import NotFound from "./pages/NotFound";
 import ProfilePage from "./pages/ProfilePage";
+import SavedPage from "./pages/SavedPage";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: '/posts',
         element: <PostsPage />
+      },
+      {
+        path: '/saved',
+        element: <SavedPage />
       },
       {
         path: '/profile',

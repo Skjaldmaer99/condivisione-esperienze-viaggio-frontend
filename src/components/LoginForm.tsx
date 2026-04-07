@@ -32,10 +32,9 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
         mutationFn: AuthService.login,
         onSuccess: () => {
             /* per ora lo lascio perchè: all'accesso, compare il tasto modifica dei miei post/ filtro il feed per post non miei */
-            queryClient.invalidateQueries({
-                queryKey: ['posts']
-            })
-            toast.success("Login avvenuto con successo");
+            queryClient.invalidateQueries({ queryKey: ['posts'] });
+            queryClient.invalidateQueries({ queryKey: ['user'] });
+            /* toast.success("Login avvenuto con successo"); */
             form.reset();
             onClose();
         },

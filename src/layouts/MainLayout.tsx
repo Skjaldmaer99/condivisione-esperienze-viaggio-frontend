@@ -6,7 +6,7 @@ import { Header } from '@/components/ui/navbar'
 import { UserService } from '@/features/users/user.service'
 import type { User } from '@/features/users/user.type'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { HouseIcon, PlusIcon, TreePalmIcon, UserRoundKeyIcon, UserRoundPlusIcon } from 'lucide-react'
+import { BookmarkIcon, HouseIcon, PlusIcon, TreePalmIcon, UserRoundKeyIcon, UserRoundPlusIcon } from 'lucide-react'
 import { Link, Outlet } from 'react-router'
 import { Toaster } from 'sonner'
 
@@ -69,17 +69,18 @@ const MainLayout = () => {
                     form={(onClose) => <CreatePostForm onClose={onClose} />}
                 />
                 {/* dialog dove inserisci il luogo e ti compaiono i post di quel luogo */}
-                <FormDialog
-                    button={<TreePalmIcon className='size-5' />}
+                <Link to={'/saved'} className='my-auto'><BookmarkIcon className='size-5 my-auto' /></Link>
+                {/* <FormDialog
+                    button={<BookmarkIcon className='size-5' />}
                     title="Filtro luogo"
                     description="Inserisci il luogo di tuo interesse"
                     form={(onClose) => <CreatePostForm onClose={onClose} />}
-                />
+                /> */}
                 <Link
                     to="/profile"
                     aria-label="home"
                     className="h-[30px] w-[30px] items-center rounded-full overflow-hidden">
-                    <img src={data?.img || "https://placehold.co/40x40/000000/FFFFFF/png?text=FE"} alt="profile" />
+                    <img src={data?.img || "https://placehold.co/40x40/000000/FFFFFF/png?text=FE"} alt="profile" className="rounded-full w-full h-full object-cover" />
                 </Link>
             </div>
             <Outlet />

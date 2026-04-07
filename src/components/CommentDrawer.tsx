@@ -44,6 +44,15 @@ export function CommentDrawer({ comments, postId }: CommentDrawerProps) {
                                     <img
                                         src={comment.user.img || "https://placehold.co/40x40/000000/FFFFFF/png?text=FE"}
                                         alt="foto profiloavatar"
+                                        className="rounded-full w-full h-full object-cover"
+                                        style={{
+                                            aspectRatio: "30/30",
+                                            objectFit: "cover",
+                                        }}
+                                    />
+                                    {/* <img
+                                        src={comment.user.img || "https://placehold.co/40x40/000000/FFFFFF/png?text=FE"}
+                                        alt="foto profiloavatar"
                                         className="rounded-full"
                                         height="30"
                                         style={{
@@ -51,7 +60,7 @@ export function CommentDrawer({ comments, postId }: CommentDrawerProps) {
                                             objectFit: "cover",
                                         }}
                                         width="30"
-                                    />
+                                    /> */}
                                 </div>
                                 <div className="w-full">
                                     <div className="font-bold">{comment.user.name}</div>

@@ -11,9 +11,11 @@ import type React from "react";
 import { useState } from "react";
 
 type DialogFormProps = {
-    button: React.ReactNode;
+    button?: React.ReactNode;
     title: string;
     description: string;
+    isOpen?: boolean;
+    onOpenChange?: any;
     form: (onClose: () => void) => React.ReactNode;
 }
 

@@ -1,3 +1,4 @@
+import type { Bookmark } from "../bookmarks/bookmark.type";
 import type { Comment } from "../comments/comment.type"
 import type { Like } from "../likes/like.type";
 import type { User } from "../users/user.type"
@@ -13,4 +14,5 @@ export type TravelPost = {
     user: User,
     comments: Comment[],
     likes: Like[];
+    bookmarks: Bookmark[];
 }
