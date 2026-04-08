@@ -13,7 +13,7 @@ const SavedPage = () => {
     console.log(data)
 
     return (
-        <div className="h-screen mx-auto max-w-md pt-20 bg-gray-100">
+        <div className="h-full min-h-screen mx-auto max-w-md py-20 bg-gray-100">
             {data?.map((post) => (
                 <Post key={post.id} {...post} />
             ))}

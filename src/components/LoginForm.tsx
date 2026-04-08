@@ -34,6 +34,7 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
             /* per ora lo lascio perchè: all'accesso, compare il tasto modifica dei miei post/ filtro il feed per post non miei */
             queryClient.invalidateQueries({ queryKey: ['posts'] });
             queryClient.invalidateQueries({ queryKey: ['user'] });
+            queryClient.invalidateQueries({ queryKey: ['bookmarks'] });
             /* toast.success("Login avvenuto con successo"); */
             form.reset();
             onClose();

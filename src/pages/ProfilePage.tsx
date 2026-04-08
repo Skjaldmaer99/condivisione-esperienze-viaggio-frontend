@@ -17,7 +17,7 @@ const ProfilePage = () => {
     const posts = data?.filter(post => post.user_id === user?.id) || [];
 
     return (
-        <div className="h-screen mx-auto max-w-md bg-gray-100 p-3 pt-20">
+        <div className="h-full min-h-screen mx-auto max-w-md bg-gray-100 p-3 py-20">
             <div className="flex gap-5">
                 <div className="w-15 h-15 overflow-hidden rounded-full">
                     <img src={user?.img || "https://placehold.co/40x40/000000/FFFFFF/png?text=FE"} alt="Profile image" className="w-full h-full object-cover" />
@@ -28,16 +28,10 @@ const ProfilePage = () => {
                 </div>
             </div>
             <div className="grid grid-cols-3 gap-1 justify-between">
-                {/* {data?.posts?.map((post) => {
-                    return (<Link to="#">
-                        <img src={post.img || 'https://placehold.co/600x400/cccccc/ffffff?text=Error+Loading+Image'} alt={post.title} />
-                    </Link>)
-                }
-                )} */}
                 {posts?.map((post) => {
                     return (
                         <div className="w-full h-[200px] overflow-hidden mt-5">
-                            <Link to="#">
+                            <Link to={`/posts/${post.id}`}>
                                 <img src={post.img || 'https://placehold.co/600x400/cccccc/ffffff?text=Error+Loading+Image'}
                                     alt={post.title}
                                     className="w-full h-full object-cover" />

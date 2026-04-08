@@ -23,7 +23,7 @@ const PostDetailPage = () => {
     console.log(data)
 
     return (
-        <div className="mx-auto h-screen max-w-md bg-gray-100">
+        <div className="mx-auto h-full min-h-screen max-w-md bg-gray-100">
             <div className='relative'>
                 <Button onClick={() => navigate(-1)}
                     className='absolute top-2 left-2 rounded-full bg-white/50 p-1'

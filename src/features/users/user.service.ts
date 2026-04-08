@@ -11,4 +11,12 @@ export class UserService {
             throw new Error(error instanceof Error ? error.message : 'Errore generico');
         }
     }
+    static async topUsers(): Promise<User[]> {
+        try {
+            const res = await http.get('/users/top-users');
+            return res.data.data;
+        } catch (error) {
+            throw new Error(error instanceof Error ? error.message : 'Errore generico');
+        }
+    }
 }

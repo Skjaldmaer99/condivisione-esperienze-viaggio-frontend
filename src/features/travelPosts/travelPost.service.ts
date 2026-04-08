@@ -38,6 +38,24 @@ export class TravelPostService {
         }
     }
 
+    static async topLiked(): Promise<TravelPost[]> {
+        try {
+            const res = await api.get(`/posts/top-liked`);
+            return res.data.data;
+        } catch (error) {
+            throw new Error(error instanceof Error ? error.message : 'Errore generico');
+        }
+    }
+
+    static async topBookmarked(): Promise<TravelPost[]> {
+        try {
+            const res = await api.get(`/posts/top-bookmarked`);
+            return res.data.data;
+        } catch (error) {
+            throw new Error(error instanceof Error ? error.message : 'Errore generico');
+        }
+    }
+
     static async create(data: z.infer<typeof createPostFormSchema>) {
         const formData = new FormData();
 

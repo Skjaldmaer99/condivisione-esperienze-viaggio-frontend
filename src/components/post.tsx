@@ -28,6 +28,7 @@ export default function Post(props: TravelPost) {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['posts'] });
+            queryClient.invalidateQueries({ queryKey: ['bookmarks'] });
         }
     });
     const mutation2 = useMutation({
@@ -36,6 +37,7 @@ export default function Post(props: TravelPost) {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['posts'] });
+            queryClient.invalidateQueries({ queryKey: ['bookmarks'] });
         }
     });
 

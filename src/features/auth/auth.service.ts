@@ -53,4 +53,10 @@ export class AuthService {
         })
     }
 
+    static async logout() {
+
+        await http.post('/logout');
+
+        localStorage.removeItem('authToken');
+    }
 }
