@@ -1,9 +1,9 @@
-import type { createPostFormSchema } from "@/components/CreatePostForm";
+import type { createPostFormSchema } from "@/features/travelPosts/CreatePostForm";
 import { http } from "@/lib/http";
 import axios from 'axios';
 import type z from "zod";
 import type { TravelPost } from "./travelPost.type";
-import type { updatePostFormSchema } from "@/components/UpdatePostForm";
+import type { updatePostFormSchema } from "./UpdatePostForm";
 
 const api = axios.create({
     baseURL: 'http://condivisione-esperienze-viaggio.test/api'
@@ -80,10 +80,12 @@ export class TravelPostService {
 
     static async update(data: z.infer<typeof updatePostFormSchema>, id: string) {
         const formData = new FormData();
-        formData.append("title", data.title);
-        formData.append("location", data.location);
-        formData.append("country", data.country);
-        formData.append("description", data.description);
+        formData.append('_method', 'PUT');
+
+        if (data.title) formData.append("title", data.title);
+        if (data.location) formData.append("location", data.location);
+        if (data.country) formData.append("country", data.country);
+        if (data.description) formData.append("description", data.description);
 
         if (data.img) {
             formData.append("img", data.img);

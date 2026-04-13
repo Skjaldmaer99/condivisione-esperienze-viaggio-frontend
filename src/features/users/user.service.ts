@@ -3,14 +3,16 @@ import type { User } from "./user.type";
 
 /*  dal path /user mi recupero lo user autenticato e lo uso per la sezione profilo */
 export class UserService {
-    static async currentUser(): Promise<User> {
+
+    static async show(id: string): Promise<User> {
         try {
-            const res = await http.get('/user');
+            const res = await http.get(`/users/${+id}`);
             return res.data.data;
         } catch (error) {
             throw new Error(error instanceof Error ? error.message : 'Errore generico');
         }
     }
+
     static async topUsers(): Promise<User[]> {
         try {
             const res = await http.get('/users/top-users');

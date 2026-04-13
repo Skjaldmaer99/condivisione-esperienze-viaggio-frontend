@@ -1,17 +1,19 @@
-import type { loginFormSchema } from "@/components/LoginForm";
-import type { registerFormSchema } from "@/components/RegisterForm";
+import type { loginFormSchema } from "@/features/auth/LoginForm";
 import { http } from "@/lib/http";
 import type z from "zod";
+import type { User } from "../users/user.type";
+import type { registerFormSchema } from "./RegisterForm";
 
 export class AuthService {
-    /* static async register(data: z.infer<typeof registerFormSchema>) {
-        const res = await http.post('/register', data, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        return res;
-    } */
+    static async currentUser(): Promise<User> {
+        try {
+            const res = await http.get('/user');
+            return res.data.data;
+        } catch (error) {
+            throw new Error(error instanceof Error ? error.message : 'Errore generico');
+        }
+    }
+
     static async register(data: z.infer<typeof registerFormSchema>) {
         const formData = new FormData();
 

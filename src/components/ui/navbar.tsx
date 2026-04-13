@@ -5,8 +5,8 @@ import React from 'react'
 import { Link } from 'react-router'
 import { FormDialog } from '../FormDialog'
 import RegisterForm from '../RegisterForm'
-import LoginForm from '../LoginForm'
-import CreatePostForm from '../CreatePostForm'
+import LoginForm from '../../features/auth/LoginForm'
+import CreatePostForm from '../../features/travelPosts/CreatePostForm'
 
 const menuItems = [
     { name: 'Dashboard', href: '/' },

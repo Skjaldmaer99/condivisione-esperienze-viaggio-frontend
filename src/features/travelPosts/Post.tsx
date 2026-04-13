@@ -11,11 +11,11 @@ import type { User } from "@/features/users/user.type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { BookmarkIcon, HeartIcon } from "lucide-react";
 import { Link } from "react-router";
-import { CommentDrawer } from "./CommentDrawer";
-import { Button } from "./ui/button";
+import { CommentDrawer } from "../comments/CommentDrawer";
+import { Button } from "../../components/ui/button";
 
-import { PostActionsPopover } from "./PostPopover";
 import { BookmarkService } from "@/features/bookmarks/bookmark.service";
+import { PostActionsPopover } from "./PostPopover";
 
 export default function Post(props: TravelPost) {
     const queryClient = useQueryClient();
@@ -47,17 +47,19 @@ export default function Post(props: TravelPost) {
                 <CardHeader>
                     <div className="w-full flex justify-between">
                         <div className="flex items-start space-x-4">
-                            <img
-                                alt="Avatar"
-                                className="rounded-full"
-                                height="40"
-                                src={props.user?.img || "https://placehold.co/40x40/000000/FFFFFF/png?text=FE"}
-                                style={{
-                                    aspectRatio: "40/40",
-                                    objectFit: "cover",
-                                }}
-                                width="40"
-                            />
+                            <Link to={`/users/${props.user_id}`}>
+                                <img
+                                    alt="Avatar"
+                                    className="rounded-full"
+                                    height="40"
+                                    src={props.user?.img || "https://placehold.co/40x40/000000/FFFFFF/png?text=FE"}
+                                    style={{
+                                        aspectRatio: "40/40",
+                                        objectFit: "cover",
+                                    }}
+                                    width="40"
+                                />
+                            </Link>
                             <div className="flex-1">
                                 <CardTitle>{props.title}</CardTitle>
                                 <CardDescription>{props.location} - {props.country}</CardDescription>
@@ -106,7 +108,10 @@ export default function Post(props: TravelPost) {
                                     </Button>
                                     <p className="my-auto">{props.likes?.length}</p>
                                 </div>
-                                <CommentDrawer comments={props.comments} postId={props.id} />
+                                <div className="flex gap-1">
+                                    <CommentDrawer comments={props.comments} postId={props.id} />
+                                    <p className="my-auto">{props.comments?.length}</p>
+                                </div>
                             </div>
                             <Button variant={'outline'}
                                 className="border-0 p-0 bg-transparent"
@@ -122,8 +127,8 @@ export default function Post(props: TravelPost) {
                             </Button>
                         </div>
                         <div className="flex gap-2">
-                            <CardDescription className="mt-auto">
-                                <p><span className="font-bold">{props.user?.name}</span> {props.description}</p>
+                            <CardDescription className="mt-auto text-black">
+                                <span className="font-bold">{props.user?.name}</span> {props.description}
                             </CardDescription>
                         </div>
                     </div>

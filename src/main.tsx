@@ -1,25 +1,26 @@
 import { ThemeProvider } from "@/components/theme-provider.tsx";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TanStackDevtools } from '@tanstack/react-devtools';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools';
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import "./index.css";
-import MainLayout from "./layouts/MainLayout";
+import RootLayout from "./layouts/RootLayout";
 import DashboardPage from "./pages/DashboardPage";
-import PostsPage from "./pages/PostsPage";
-import PostDetailPage from "./pages/PostDetailPage";
 import NotFound from "./pages/NotFound";
+import PostDetailPage from "./pages/PostDetailPage";
+import PostsPage from "./pages/PostsPage";
 import ProfilePage from "./pages/ProfilePage";
 import SavedPage from "./pages/SavedPage";
+import SingleUserPage from "./pages/SingleUserPage";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout />,
+    element: <RootLayout />,
     children: [
       {
         index: true,
@@ -36,7 +37,11 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <ProfilePage />
-      }
+      },
+      {
+        path: '/users/:id',
+        element: <SingleUserPage />,
+      },
     ]
   },
   {

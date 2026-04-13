@@ -1,11 +1,8 @@
-"use client"
-
 import {
-    CreditCardIcon,
     EllipsisVerticalIcon,
     LogOutIcon,
     SettingsIcon,
-    UserIcon,
+    UserIcon
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"

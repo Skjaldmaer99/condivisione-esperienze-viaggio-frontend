@@ -13,7 +13,7 @@ import {
 import { CommentService } from "@/features/comments/comment.service"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { SendIcon } from "lucide-react"
-import { Textarea } from "./ui/textarea"
+import { Textarea } from "../../components/ui/textarea"
 
 export const commentFormSchema = z.object({
     comment: z.string().min(1).max(500),
@@ -30,7 +30,7 @@ export default function CommentForm({ postId }: { postId: number }) {
             queryClient.invalidateQueries({
                 queryKey: ['posts']
             });
-            toast.success("Commento inviato con successo");
+            //toast.success("Commento inviato con successo");
             form.reset();
         },
         onError: () => {

@@ -1,11 +1,16 @@
 import { FormDialog } from '@/components/FormDialog'
-import LoginForm from '@/features/auth/LoginForm'
-import RegisterForm from '@/features/auth/RegisterForm'
-import { HouseIcon, SearchIcon, UserRoundKeyIcon, UserRoundPlusIcon } from 'lucide-react'
+import { LogoutDialog } from '@/features/auth/LogoutDialog'
+import CreatePostForm from '@/features/travelPosts/CreatePostForm'
+import type { User } from '@/features/users/user.type'
+import { useQueryClient } from '@tanstack/react-query'
+import { BookmarkIcon, HouseIcon, PlusIcon, SearchIcon } from 'lucide-react'
 import { Link, Outlet } from 'react-router'
 import { Toaster } from 'sonner'
 
-const MainLayout = () => {
+const AuthLayout = () => {
+    const queryClient = useQueryClient();
+
+    const data = queryClient.getQueryData<User>(['user']);
 
     return (
         <>
@@ -17,18 +22,7 @@ const MainLayout = () => {
                     <img src="logo-travel.png" alt="logo" className='w-full h-full rounded-full' />
                 </Link>
                 <div className='flex ms-auto gap-3'>
-                    <FormDialog
-                        button={<UserRoundPlusIcon className='size-9 p-2 rounded-full' />}
-                        title="Registrati"
-                        description="Registrati"
-                        form={(onClose) => <RegisterForm onClose={onClose} />}
-                    />
-                    <FormDialog
-                        button={<UserRoundKeyIcon className='size-9 p-2 rounded-full' />}
-                        title="Login"
-                        description="Login"
-                        form={(onClose) => <LoginForm onClose={onClose} />}
-                    />
+                    <LogoutDialog />
                 </div>
             </div>
             <div className="w-full h-13 z-50 bg-primary-foreground max-w-md left-0 right-0 fixed bottom-0 mx-auto flex justify-between p-2 border-t-1 border-black/10">
@@ -46,6 +40,20 @@ const MainLayout = () => {
                 >
                     <SearchIcon className='size-5' />
                 </Link>
+                <FormDialog
+                    button={<PlusIcon className='size-5' />}
+                    title="Nuovo post"
+                    description="Inserisci i dettagli del tuo viaggio"
+                    form={(onClose) => <CreatePostForm onClose={onClose} />}
+                />
+                {/* dialog dove inserisci il luogo e ti compaiono i post di quel luogo */}
+                <Link to={'/saved'} className='my-auto'><BookmarkIcon className='size-5 my-auto' /></Link>
+                <Link
+                    to="/profile"
+                    aria-label="home"
+                    className="h-[30px] w-[30px] items-center rounded-full overflow-hidden">
+                    <img src={data?.img || "https://placehold.co/40x40/000000/FFFFFF/png?text=FE"} alt="profile" className="rounded-full w-full h-full object-cover" />
+                </Link>
             </div>
             <Outlet />
             <Toaster />
@@ -53,4 +61,4 @@ const MainLayout = () => {
     )
 }
 
-export default MainLayout
+export default AuthLayout

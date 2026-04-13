@@ -11,9 +11,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { AuthService } from "@/features/auth/auth.service";
-import type { User } from "@/features/users/user.type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { LogOutIcon, Trash2Icon } from "lucide-react";
+import { LogOutIcon } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -29,19 +28,21 @@ export function LogoutDialog() {
     const mutation = useMutation({
         mutationFn: AuthService.logout,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['user'] });
+            queryClient.setQueryData(['user'], null);
             queryClient.invalidateQueries({ queryKey: ['posts'] });
+            queryClient.invalidateQueries({ queryKey: ['user'] });
             queryClient.invalidateQueries({ queryKey: ['bookmarks'] });
-            queryClient.clear();
+
             navigate('/posts')
 
             setOpen(false)
         },
         onError: () => {
-            queryClient.invalidateQueries({ queryKey: ['user'] });
+            queryClient.setQueryData(['user'], null);
             queryClient.invalidateQueries({ queryKey: ['posts'] });
+            queryClient.invalidateQueries({ queryKey: ['user'] });
             queryClient.invalidateQueries({ queryKey: ['bookmarks'] });
-            queryClient.clear();
+
             navigate('/posts')
 
             setOpen(false)

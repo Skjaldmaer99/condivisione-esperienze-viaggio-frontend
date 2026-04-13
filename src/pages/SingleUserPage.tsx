@@ -1,22 +1,18 @@
-import { AuthService } from "@/features/auth/auth.service";
+import { UserService } from "@/features/users/user.service";
 import { useQuery } from "@tanstack/react-query";
-import { Link, useNavigate } from "react-router";
-import { useSwipeable } from 'react-swipeable'
+import { Link, useNavigate, useParams } from "react-router";
+import { useSwipeable } from 'react-swipeable';
 
-const ProfilePage = () => {
+const SingleUserPage = () => {
+    const { id } = useParams();
     const navigate = useNavigate();
 
     const { data: user } = useQuery({
-        queryKey: ['user'],
-        queryFn: AuthService.currentUser,
-        retry: (failureCount, error: any) => {
-            if (error?.response?.status === 401) {
-                return false; // ❌ non ritentare se non autenticato
-            }
-            return failureCount < 3;
-        },
+        queryKey: ['singleuser', id],
+        queryFn: () => UserService.show(id!),
     })
 
+    // ho fatto npm install react-swipeable per tornare indietro con la gesture invece che con il bottone
     const handlers = useSwipeable({
         onSwipedRight: () => navigate(-1), // 👉 swipe da sinistra a destra
         preventScrollOnSwipe: true,
@@ -52,4 +48,4 @@ const ProfilePage = () => {
     )
 }
 
-export default ProfilePage
+export default SingleUserPage

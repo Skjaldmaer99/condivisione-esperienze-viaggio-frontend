@@ -13,10 +13,10 @@ import {
     FieldError,
     FieldLabel
 } from "@/components/ui/field"
-import { Checkbox } from "./ui/checkbox"
 
 import { AuthService } from "@/features/auth/auth.service"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { Checkbox } from "@/components/ui/checkbox"
 
 export const registerFormSchema = z.object({
     name: z.string().min(1).min(1).max(100),

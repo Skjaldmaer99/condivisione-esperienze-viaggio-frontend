@@ -1,6 +1,6 @@
 import { Field, FieldError } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import Post from '@/components/Post';
+import Post from '@/features/travelPosts/Post';
 import { TravelPostService } from '@/features/travelPosts/travelPost.service';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';

@@ -1,9 +1,7 @@
 import { TravelPostService } from "@/features/travelPosts/travelPost.service";
-import type { TravelPost } from "@/features/travelPosts/travelPost.type";
 import { UserService } from "@/features/users/user.service";
-import { Separator } from "@base-ui/react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Link } from "react-router"
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router";
 
 const DashboardPage = () => {
     const { data: topLiked } = useQuery({
@@ -25,7 +23,7 @@ const DashboardPage = () => {
             <div className="grid grid-cols-3 gap-1 justify-between">
                 {topLiked?.map((post) => {
                     return (
-                        <div className="w-full h-[200px] overflow-hidden mt-5">
+                        <div key={post.id} className="w-full h-[200px] overflow-hidden mt-5">
                             <Link to={`/posts/${post.id}`}>
                                 <img src={post.img || 'https://placehold.co/600x400/cccccc/ffffff?text=Error+Loading+Image'}
                                     alt={post.title}
@@ -41,10 +39,12 @@ const DashboardPage = () => {
             <div className="grid grid-cols-4 gap-1 justify-between mt-5">
                 {topUsers?.map((user) => {
                     return (
-                        <div className="w-20 h-20 rounded-full overflow-hidden m-auto">
-                            <img src={user.img || 'https://placehold.co/600x400/cccccc/ffffff?text=Error+Loading+Image'}
-                                alt={`immagine profilo ${user.name}`}
-                                className="w-full h-full object-cover" />
+                        <div key={user.id} className="w-20 h-20 rounded-full overflow-hidden m-auto">
+                            <Link to={`/users/${user.id}`}>
+                                <img src={user.img || 'https://placehold.co/600x400/cccccc/ffffff?text=Error+Loading+Image'}
+                                    alt={`immagine profilo ${user.name}`}
+                                    className="w-full h-full object-cover" />
+                            </Link>
                         </div>
                     )
                 }
@@ -55,7 +55,7 @@ const DashboardPage = () => {
             <div className="grid grid-cols-3 gap-1 justify-between">
                 {topBookmarked?.map((post) => {
                     return (
-                        <div className="w-full h-[200px] overflow-hidden mt-5">
+                        <div key={post.id} className="w-full h-[200px] overflow-hidden mt-5">
                             <Link to={`/posts/${post.id}`}>
                                 <img src={post.img || 'https://placehold.co/600x400/cccccc/ffffff?text=Error+Loading+Image'}
                                     alt={post.title}

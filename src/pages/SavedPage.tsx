@@ -1,4 +1,4 @@
-import Post from "@/components/Post";
+import Post from "@/features/travelPosts/Post";
 import { BookmarkService } from "@/features/bookmarks/bookmark.service";
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 

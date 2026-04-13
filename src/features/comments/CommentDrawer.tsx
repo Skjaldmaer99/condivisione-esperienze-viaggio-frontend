@@ -40,7 +40,7 @@ export function CommentDrawer({ comments, postId }: CommentDrawerProps) {
                         ? comments.map((comment, index) => (
 
                             <div key={index} className="flex gap-3 py-2 border-b-1 border-black/10" >
-                                <div className="w-[40px]">
+                                <div className="w-[40px] h-[40px]">
                                     <img
                                         src={comment.user.img || "https://placehold.co/40x40/000000/FFFFFF/png?text=FE"}
                                         alt="foto profiloavatar"
