@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input"
 import { AuthService } from "@/features/auth/auth.service"
 import { http } from "@/lib/http"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { Link } from "react-router"
 
 export const loginFormSchema = z.object({
     email: z.string().min(1).min(1).max(100),
@@ -68,7 +69,6 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
                     {...form.register("email")} />
                 <FieldError>{form.formState.errors.email?.message}</FieldError>
             </Field>
-
             <Field>
                 <FieldLabel>Password</FieldLabel>
                 <Input placeholder="********"
@@ -77,6 +77,7 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
                 <FieldError>{form.formState.errors.password?.message}</FieldError>
             </Field>
             <Button type="submit">Accedi</Button>
+            <p>Password dimenticata? <Link to={'/recupero-password'}>Recupera</Link></p>
         </form>
     )
 }

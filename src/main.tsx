@@ -16,6 +16,10 @@ import ProfilePage from "./pages/ProfilePage";
 import SavedPage from "./pages/SavedPage";
 import SingleUserPage from "./pages/SingleUserPage";
 import VerifyEmailPage from "./pages/VerifyEmailPage";
+import RecuperoPasswordPage from "./pages/RecuperoPasswordPage";
+import RedirectPasswordPage from "./pages/RedirectPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
+import SuccessPasswordPage from "./pages/SuccessPasswordPage";
 
 const client = new QueryClient({
   defaultOptions: {
@@ -62,11 +66,27 @@ const router = createBrowserRouter([
         path: '/verify-email',
         element: <VerifyEmailPage />,
       },
+      {
+        path: '/redirect-password',
+        element: <RedirectPasswordPage />,
+      },
+      {
+        path: '/success-password',
+        element: <SuccessPasswordPage />,
+      },
     ]
   },
   {
     path: '/posts/:id',
     element: <PostDetailPage />,
+  },
+  {
+    path: '/recupero-password', //forgot-password
+    element: <RecuperoPasswordPage />,
+  },
+  {
+    path: '/reset-password', // reset-password
+    element: <ResetPasswordPage />,
   },
   {
     path: '*',

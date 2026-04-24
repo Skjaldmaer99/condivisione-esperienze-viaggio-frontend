@@ -3,6 +3,8 @@ import { http } from "@/lib/http";
 import type z from "zod";
 import type { User } from "../users/user.type";
 import type { registerFormSchema } from "./RegisterForm";
+import type { forgotPasswordFormSchema } from "./ForgotPasswordForm";
+import type { resetPasswordFormSchema } from "./ResetPasswordForm";
 
 type AuthResponse = {
     token: string;
@@ -75,5 +77,22 @@ export class AuthService {
         await http.post('/logout');
 
         localStorage.removeItem('authToken');
+    }
+
+    static async forgotPassword(data: z.infer<typeof forgotPasswordFormSchema>) {
+        try {
+            const res = await http.post('/forgot-password', data);
+            return res.data.data;
+        } catch (error) {
+            throw new Error(error instanceof Error ? error.message : "errore generico");
+        }
+    }
+    static async resetPassword(data: z.infer<typeof resetPasswordFormSchema>) {
+        try {
+            const res = await http.post('/reset-password', data);
+            return res.data.data;
+        } catch (error) {
+            throw new Error(error instanceof Error ? error.message : "errore generico");
+        }
     }
 }
