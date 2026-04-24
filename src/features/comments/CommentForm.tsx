@@ -30,6 +30,7 @@ export default function CommentForm({ postId }: { postId: number }) {
             queryClient.invalidateQueries({
                 queryKey: ['posts']
             });
+            queryClient.invalidateQueries({ queryKey: ['post'] });
             //toast.success("Commento inviato con successo");
             form.reset();
         },

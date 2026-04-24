@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input"
 
 import { AuthService } from "@/features/auth/auth.service"
+import { http } from "@/lib/http"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 export const loginFormSchema = z.object({
@@ -29,7 +30,9 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
 
     const mutation = useMutation({
         mutationFn: AuthService.login,
-        onSuccess: () => {
+        onSuccess: async (data) => {
+            const user = data.user;
+            const token = localStorage.getItem('authToken');
             /* per ora lo lascio perchè: all'accesso, compare il tasto modifica dei miei post/ filtro il feed per post non miei */
             queryClient.invalidateQueries({ queryKey: ['posts'] });
             queryClient.invalidateQueries({ queryKey: ['user'] });
@@ -37,6 +40,16 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
             /* toast.success("Login avvenuto con successo"); */
             form.reset();
             onClose();
+
+            // se l'utente non ha verificato la mail, finisco nella pagina di verifica
+            if (!user.email_verified_at) {
+                await http.post('/email/verification-notification', null, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                window.location.href = '/verify-email';
+            }
         },
         onError: () => {
             toast.error("Errore durante l'accesso");

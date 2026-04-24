@@ -4,6 +4,15 @@ import type z from "zod";
 import type { User } from "../users/user.type";
 import type { registerFormSchema } from "./RegisterForm";
 
+type AuthResponse = {
+    token: string;
+    user: {
+        email: string;
+        email_verified_at: string | null;
+        // aggiungi altri campi se vuoi
+    };
+};
+
 export class AuthService {
     static async currentUser(): Promise<User> {
         try {
@@ -33,14 +42,20 @@ export class AuthService {
         return res; */
     }
 
-    static async login(data: z.infer<typeof loginFormSchema>) {
+
+    static async login(data: z.infer<typeof loginFormSchema>): Promise<AuthResponse> {
         const res = await http.post('/login', data);
         const token = res.data.token;
+        const user = res.data.user;
+
         if (!token) {
             throw new Error('Token non valido');
         }
+
         localStorage.setItem('authToken', token);
-        return res;
+        localStorage.setItem('user', JSON.stringify(user));
+        //return res;
+        return { token, user };
     }
 
     static authToken() {

@@ -15,8 +15,24 @@ import PostsPage from "./pages/PostsPage";
 import ProfilePage from "./pages/ProfilePage";
 import SavedPage from "./pages/SavedPage";
 import SingleUserPage from "./pages/SingleUserPage";
+import VerifyEmailPage from "./pages/VerifyEmailPage";
 
-const client = new QueryClient();
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: (failureCount, error: any) => {
+        if (error?.response?.status === 403) {
+          return false; // stoppa il retry
+        }
+        return failureCount < 2;
+      },
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      refetchOnMount: false,
+    },
+  },
+});
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -41,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: '/users/:id',
         element: <SingleUserPage />,
+      },
+      {
+        path: '/verify-email',
+        element: <VerifyEmailPage />,
       },
     ]
   },
